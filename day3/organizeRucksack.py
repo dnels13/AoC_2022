@@ -1,13 +1,11 @@
 puzzle_input = open('../inputs/day3_input1.txt', 'r')
 
-def common_char(s):
-    s1 = s[:(len(s)//2)]
-    s2 = s[(len(s)//2):]
+def common_char(bags):
+    common_items = set(bags[0])
+    for bag in bags[1:]:
+        common_items &= set(bag)
 
-    for char1 in s1:
-        for char2 in s2:
-            if char1 == char2:
-                return char1
+    return common_items.pop()
 
 
 def priority_of(c):
@@ -17,15 +15,39 @@ def priority_of(c):
     else:
         return ord(c) - 38
 
-
+# ------ PART 1 ------
 total_priority = 0
 rucksack = puzzle_input.readline().strip()
 
 while rucksack != '':
-    c = common_char(rucksack)
+    bags = []
+    bags.append(rucksack[:len(rucksack)//2])
+    bags.append(rucksack[len(rucksack)//2:])
+    c = common_char(bags)
     total_priority += priority_of(c)
 
     rucksack = puzzle_input.readline().strip()
 
 
 print(str(total_priority))
+puzzle_input.close()
+
+# ------ PART 2 ------
+
+puzzle_input = open("../inputs/day3_input1.txt", "r")
+rucksack = puzzle_input.readline().strip()
+bags = []
+total_priority = 0
+
+while rucksack != '':
+    bags.append(rucksack)
+    
+    if len(bags) == 3:
+        c = common_char(bags)
+        total_priority += priority_of(c)
+        bags = []
+    
+    rucksack = puzzle_input.readline().strip()
+
+print(str(total_priority))
+puzzle_input.close()
