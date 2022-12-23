@@ -1,4 +1,4 @@
-puzzleInput = open('./inputs/day1_input1.txt', 'r')
+puzzleInput = open('../inputs/day1_input1.txt', 'r')
 
 currentSum = 0
 elfCalorieArray = []

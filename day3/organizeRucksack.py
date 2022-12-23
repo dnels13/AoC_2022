@@ -1,4 +1,4 @@
-puzzle_input = open('./inputs/day3_input1.txt', 'r')
+puzzle_input = open('../inputs/day3_input1.txt', 'r')
 
 def common_char(s):
     s1 = s[:(len(s)//2)]

@@ -1,4 +1,4 @@
-puzzle_input = open('./inputs/day2_input1.txt', 'r')
+puzzle_input = open('../inputs/day2_input1.txt', 'r')
 
 OPP_THROWS = ['A', 'B', 'C']
 SELF_THROWS = ['X', 'Y', 'Z']
@@ -30,7 +30,7 @@ puzzle_input.close()
 
 print("_____PART 1_____\nTotal Score = " + str(total_score) + "\n\n")
 
-puzzle_input = open('./inputs/day2_input1.txt', 'r')
+puzzle_input = open('../inputs/day2_input1.txt', 'r')
 game = puzzle_input.readline().strip().split()
 total_score = 0
 while len(game) != 0:
