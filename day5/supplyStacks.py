@@ -21,7 +21,7 @@ def reverse_stacks(crate_stacks):
     for stack in crate_stacks:
         stack.reverse()
 
-#part 1
+#Part 1
 def move_crates(n, stacks, stack_A, stack_B):
      for i in range(0, n):
         crate = stacks[stack_A].pop()
