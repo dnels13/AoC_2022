@@ -2,7 +2,9 @@
 
 class DirectoryTree
   ROOT = '/'
-  SIZE_THRESHOLD = 100_000
+  SMALL_FILE_SIZE = 100_000
+  DISK_SPACE = 70_000_000
+  SPACE_REQUIRED = 30_000_000
 
   attr_reader :terminal_output, :root
 
@@ -41,7 +43,15 @@ class DirectoryTree
 
   def solve_pt1
     small_sum = sum_small_dirs
-    puts "Sum of all directories less than #{SIZE_THRESHOLD}: #{small_sum}"
+    puts "Sum of all directories less than #{SMALL_FILE_SIZE}: #{small_sum}"
+  end
+
+  def solve_pt2
+    puts "Available Space: #{unused_space}
+    Update Size: #{SPACE_REQUIRED}
+    Space needed: #{SPACE_REQUIRED - unused_space}"
+    rip_dir = directory_to_be_deleted(root, root)
+    puts "The directory that will be deleted is Dir #{rip_dir.name}, which will clear #{rip_dir.size} space"
   end
 
   # private
@@ -59,7 +69,7 @@ class DirectoryTree
 
   def sum_small_dirs(dir = @root)
     dir_size = dir.size
-    sum = dir_size <= SIZE_THRESHOLD ? dir_size : 0
+    sum = dir_size <= SMALL_FILE_SIZE ? dir_size : 0
     dir.children.each do |child_dir|
       sum += sum_small_dirs(child_dir)
     end
@@ -72,5 +82,19 @@ class DirectoryTree
 
   def change_input(terminal_output)
     @terminal_output = terminal_output
+  end
+
+  # -- PART 2 --
+  def unused_space
+    @unused_space ||= DISK_SPACE - root.size
+  end
+
+  def directory_to_be_deleted(root, candidate)
+    dir_size = root.size
+    candidate = root if dir_size < candidate.size && dir_size >= SPACE_REQUIRED - unused_space
+    root.children.each do |child_dir|
+      candidate = directory_to_be_deleted(child_dir, candidate)
+    end
+    candidate
   end
 end
